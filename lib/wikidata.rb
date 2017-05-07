@@ -22,8 +22,13 @@ module Wikidata
 
   class << self
 
+    # Shut the Hashie warnings up
+    # More info: https://github.com/berkshelf/ridley/issues/366
+    Hashie.logger = Logger.new(STDERR)
+    Hashie.logger.level = Logger.const_get 'ERROR'
+
     def configure &block
-      Configuration.configure &block
+      Configuration.configure(&block)
     end
 
     def use_only_default_language?
